@@ -34,5 +34,12 @@ namespace Project
         {
             return await _irepository.CreateMap(size, name);
         }
+
+        [HttpPost]
+        [Route("{mapId}/createplayer")]
+        public async Task<Player> CreatePlayer(string mapId, [FromBody] Player player)
+        {
+            return await _irepository.CreatePlayer(mapId, player);
+        }
     }
 }

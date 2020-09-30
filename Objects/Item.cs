@@ -9,7 +9,7 @@ namespace Project
 
     public class Item : IMapObject
     {
-        public Guid Id { get; set; }
+        public string id { get; set; }
         public string Name { get; set; }
         public int damage { get; set; }
         public Type type { get; set; }

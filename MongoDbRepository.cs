@@ -46,6 +46,7 @@ namespace Project
         }
         public async Task<Player> CreatePlayer(string mapId, Player player)
         {
+            player.id = Guid.NewGuid().ToString();
             Map map = await FindMap(mapId);
             Random rnd = new Random();
             int randomX = rnd.Next(0, map.tiles.Length);

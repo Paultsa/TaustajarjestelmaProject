@@ -8,5 +8,7 @@ namespace Project
     {
         Task<Map> CreateMap(int size, string map);
         Task<string[,]> PrintMap(string map_id);
+
+        Task<Player> CreatePlayer(string mapId, Player player);
     }
 }
