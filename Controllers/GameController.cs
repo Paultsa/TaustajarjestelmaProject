@@ -23,7 +23,7 @@ public class GameController : ControllerBase
     [Route("printmap")]
     public Task<string[,]> PrintMap()
     {
-        Task<Player[]> map = _irepository.PrintMap();
+        Task<string[,]> map = _irepository.PrintMap();
         return map;
     }
 }
