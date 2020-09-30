@@ -4,7 +4,7 @@ namespace Project
 {
     class MapTile
     {
-        ICharacter entity { get; set; }
-        Item item { get; set; }
+        public ICharacter entity { get; set; }
+        public Item item { get; set; }
     }
 }

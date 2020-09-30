@@ -5,7 +5,7 @@ namespace Project
 {
     public class Map
     {
-        List<List<MapTile>> tiles { get; set; }
-        Guid id { get; set; }
+        public List<List<MapTile>> tiles { get; set; }
+        public Guid id { get; set; }
     }
 }
