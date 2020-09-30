@@ -63,7 +63,7 @@ namespace Project
 
         public async Task<string[,]> PrintMap(string map_id)
         {
-            var current_map = FindMap(map_id);
+            var current_map = await FindMap(map_id);
             var map_w = current_map[0].Count();
             var map_h = current_map.Count();
 
