@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 namespace Project
 {
+    [ApiController]
     public class GameController : ControllerBase
     {
         private readonly ILogger<GameController> _logger;
@@ -21,7 +22,7 @@ namespace Project
         }
 
         [HttpGet]
-        [Route("printmap/{map_id:string}")]
+        [Route("printmap/{map_id}")]
         public Task<string[,]> PrintMap(string map_id)
         {
             return _irepository.PrintMap(map_id);

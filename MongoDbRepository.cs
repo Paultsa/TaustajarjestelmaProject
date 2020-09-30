@@ -30,11 +30,12 @@ namespace Project
         {
             Map map = new Map()
             {
-                tiles = new List<List<MapTile>>(),
+                tiles = new MapTile[size][],
                 id = name
             };
             for (int x = 0; x < size; x++)
             {
+                map.tiles[x] = new MapTile[size];
                 for (int y = 0; y < size; y++)
                 {
                     map.tiles[x][y] = new MapTile();
@@ -47,8 +48,8 @@ namespace Project
         {
             Map map = await FindMap(mapId);
             Random rnd = new Random();
-            int randomX = rnd.Next(0, map.tiles.Count());
-            int randomY = rnd.Next(0, map.tiles.Count());
+            int randomX = rnd.Next(0, map.tiles.Length);
+            int randomY = rnd.Next(0, map.tiles.Length);
 
             var filter = Builders<Map>.Filter.Eq(m => m.tiles[randomX][randomY].obj, null);
             if (filter == null)
@@ -64,8 +65,8 @@ namespace Project
         public async Task<string[,]> PrintMap(string map_id)
         {
             var current_map = await FindMap(map_id);
-            var map_w = current_map.tiles.Count();
-            var map_h = current_map.tiles.Count();
+            var map_w = current_map.tiles.Length;
+            var map_h = current_map.tiles.Length;
 
             string[,] map = new string[map_w, map_h];
 
@@ -74,14 +75,20 @@ namespace Project
             {
                 for (int x = 0; x < map_w; x++)
                 {
-                    Type objcet_type = current_map.tiles[x][y].obj.type;
-
-                    switch (objcet_type)
+                    IMapObject prop = current_map.tiles[x][y].obj;
+                    if (prop != null)
                     {
-                        case Type.player: map[x, y] = "@"; break;
-                        case Type.enemy: map[x, y] = "#"; break;
-                        case Type.item: map[x, y] = "¤"; break;
-                        default: map[x, y] = "."; break;
+                        switch (prop.type)
+                        {
+                            case Type.player: map[x, y] = "@  "; break;
+                            case Type.enemy: map[x, y] = "#  "; break;
+                            case Type.item: map[x, y] = "¤  "; break;
+
+                        }
+                    }
+                    else
+                    {
+                        map[x, y] = ".  ";
                     }
                 }
             }
@@ -89,14 +96,16 @@ namespace Project
             //Print map to console
             for (int y = 0; y < map_h; y++)
             {
+
                 for (int x = 0; x < map_w; x++)
                 {
                     string content = map[x, y];
-                    Console.WriteLine(content);
+                    Console.Write(content);
                 }
+                Console.WriteLine();
             }
 
-            return map;
+            return null;
         }
     }
 
