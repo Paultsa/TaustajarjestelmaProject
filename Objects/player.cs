@@ -5,6 +5,7 @@ namespace Project
         public string id { get; set; }
         public string name { get; set; }
         public int damage { get; set; }
+        public int health { get; set; }
         public int score { get; set; }
         public int level { get; set; }
         public DateTime creationTime { get; set; }
