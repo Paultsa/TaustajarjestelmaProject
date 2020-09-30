@@ -64,8 +64,8 @@ namespace Project
         public async Task<string[,]> PrintMap(string map_id)
         {
             var current_map = await FindMap(map_id);
-            var map_w = current_map[0].Count();
-            var map_h = current_map.Count();
+            var map_w = current_map.tiles.Count();
+            var map_h = current_map.tiles.Count();
 
             string[,] map = new string[map_w, map_h];
 
@@ -74,13 +74,14 @@ namespace Project
             {
                 for (int x = 0; x < map_w; x++)
                 {
-                    IMapObjcet objcet_type = current_map.tiles[x][y].type;
+                    Type objcet_type = current_map.tiles[x][y].obj.type;
+
                     switch (objcet_type)
                     {
-                        case null: map[x][y] = "."; break;
-                        case player: map[x][y] = "@"; break;
-                        case enemy: map[x][y] = "#"; break;
-                        case item: map[x][y] = "¤"; break;
+                        case Type.player: map[x, y] = "@"; break;
+                        case Type.enemy: map[x, y] = "#"; break;
+                        case Type.item: map[x, y] = "¤"; break;
+                        default: map[x, y] = "."; break;
                     }
                 }
             }
@@ -90,7 +91,7 @@ namespace Project
             {
                 for (int x = 0; x < map_w; x++)
                 {
-                    string content = map[x][y];
+                    string content = map[x, y];
                     Console.WriteLine(content);
                 }
             }

@@ -1,6 +1,6 @@
 namespace Project
 {
-    enum Type
+    public enum Type
     {
         player,
         enemy,
@@ -9,6 +9,6 @@ namespace Project
 
     public interface IMapObject
     {
-
+        Type type { get; set; }
     }
 }

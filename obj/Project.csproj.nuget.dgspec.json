@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Paultsa\\Desktop\\GitHubDesktop\\Project\\TaustajarjestelmaProject\\Project.csproj": {}
+    "C:\\Users\\Dartt\\OneDrive\\Asiakirjat\\GitHub\\TaustajarjestelmaProject\\Project.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Paultsa\\Desktop\\GitHubDesktop\\Project\\TaustajarjestelmaProject\\Project.csproj": {
+    "C:\\Users\\Dartt\\OneDrive\\Asiakirjat\\GitHub\\TaustajarjestelmaProject\\Project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Paultsa\\Desktop\\GitHubDesktop\\Project\\TaustajarjestelmaProject\\Project.csproj",
+        "projectUniqueName": "C:\\Users\\Dartt\\OneDrive\\Asiakirjat\\GitHub\\TaustajarjestelmaProject\\Project.csproj",
         "projectName": "Project",
-        "projectPath": "C:\\Users\\Paultsa\\Desktop\\GitHubDesktop\\Project\\TaustajarjestelmaProject\\Project.csproj",
-        "packagesPath": "C:\\Users\\Paultsa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Paultsa\\Desktop\\GitHubDesktop\\Project\\TaustajarjestelmaProject\\obj\\",
+        "projectPath": "C:\\Users\\Dartt\\OneDrive\\Asiakirjat\\GitHub\\TaustajarjestelmaProject\\Project.csproj",
+        "packagesPath": "C:\\Users\\Dartt\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dartt\\OneDrive\\Asiakirjat\\GitHub\\TaustajarjestelmaProject\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Paultsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dartt\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,7 +40,7 @@
           "dependencies": {
             "MongoDb.Driver": {
               "target": "Package",
-              "version": "[*, )"
+              "version": "[2.11.2, )"
             }
           },
           "imports": [
@@ -64,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

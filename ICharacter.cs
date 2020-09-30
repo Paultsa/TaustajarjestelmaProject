@@ -1,12 +1,10 @@
 namespace Project
 {
-    public interface ICharacter : IMapObjcet
+    public interface ICharacter : IMapObject
     {
         string id { get; set; }
         string name { get; set; }
         int damage { get; set; }
         int health { get; set; }
-        Type type { get; set; }
-
     }
 }
