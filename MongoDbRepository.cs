@@ -79,7 +79,7 @@ namespace Project
                     {
                         case null: map[x][y] = "."; break;
                         case player: map[x][y] = "@"; break;
-                        case Enemy: map[x][y] = "#"; break;
+                        case enemy: map[x][y] = "#"; break;
                     }
                 }
             }
