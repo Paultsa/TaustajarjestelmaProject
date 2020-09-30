@@ -18,4 +18,12 @@ public class GameController : ControllerBase
         _logger = logger;
         _irepository = irepository;
     }
+
+    [HttpGet]
+    [Route("printmap")]
+    public Task<string[,]> PrintMap()
+    {
+        Task<Player[]> map = _irepository.PrintMap();
+        return map;
+    }
 }

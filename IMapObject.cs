@@ -1,13 +1,13 @@
 namespace Project
 {
-    enum type
+    enum Type
     {
         player,
         enemy,
         item
     }
 
-    public interface IMapObjcet
+    public interface IMapObject
     {
 
     }

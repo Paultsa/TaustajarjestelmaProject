@@ -63,13 +63,13 @@ namespace Project
 
         public async Task<string[,]> PrintMap(string map_id)
         {
-            var filter = Builders<Map>.Filter.Eq(m => m.id, map_id);
-            var current_map = await _mapCollection.FirstAsync(scoreFilter, update);
+            var current_map = FindMap(map_id);
             var map_w = current_map[0].Count();
             var map_h = current_map.Count();
 
-            string[,] map = new int[map_w, map_h];
+            string[,] map = new string[map_w, map_h];
 
+            //Get map data
             for (int y = 0; y < map_h; y++)
             {
                 for (int x = 0; x < map_w; x++)
@@ -80,10 +80,12 @@ namespace Project
                         case null: map[x][y] = "."; break;
                         case player: map[x][y] = "@"; break;
                         case enemy: map[x][y] = "#"; break;
+                        case item: map[x][y] = "¤"; break;
                     }
                 }
             }
 
+            //Print map to console
             for (int y = 0; y < map_h; y++)
             {
                 for (int x = 0; x < map_w; x++)
