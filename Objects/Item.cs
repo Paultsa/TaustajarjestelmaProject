@@ -7,11 +7,11 @@ using System.Collections.Generic;
 namespace Project
 {
 
-    public class Item : IMapObjcet
+    public class Item : IMapObject
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public int damage { get; set; }
-        Type type { get; set; }
+        public Type type { get; set; }
     }
 }

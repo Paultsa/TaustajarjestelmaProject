@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace Project
 {
     public class Player : ICharacter
@@ -10,6 +14,7 @@ namespace Project
         public int level { get; set; }
         public DateTime creationTime { get; set; }
         public List<Item> list_items { get; set; } = new List<Item>();
+        public Type type { get; set; }
 
         public static implicit operator Task<object>(Player v)
         {

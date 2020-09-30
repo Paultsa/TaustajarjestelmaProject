@@ -21,11 +21,10 @@ namespace Project
         }
 
         [HttpGet]
-        [Route("printmap")]
-        public Task<string[,]> PrintMap()
+        [Route("printmap/{map_id:string}")]
+        public Task<string[,]> PrintMap(string map_id)
         {
-            Task<string[,]> map = _irepository.PrintMap();
-            return map;
+            return _irepository.PrintMap(map_id);
         }
 
         [HttpPost]

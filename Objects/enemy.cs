@@ -1,3 +1,6 @@
+using System;
+using System.Threading.Tasks;
+
 namespace Project
 {
     public class Enemy : ICharacter
@@ -6,6 +9,7 @@ namespace Project
         public string name { get; set; }
         public int damage { get; set; }
         public int health { get; set; }
+        public Type type { get; set; }
 
         public static implicit operator Task<object>(Enemy v)
         {
