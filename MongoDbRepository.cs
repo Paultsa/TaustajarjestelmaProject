@@ -61,6 +61,40 @@ namespace Project
             return player;
         }
 
+        public async Task<string[,]> PrintMap(string map_id)
+        {
+            var filter = Builders<Map>.Filter.Eq(m => m.id, map_id);
+            var current_map = await _mapCollection.FirstAsync(scoreFilter, update);
+            var map_w = current_map[0].Count();
+            var map_h = current_map.Count();
+
+            string[,] map = new int[map_w, map_h];
+
+            for (int y = 0; y < map_h; y++)
+            {
+                for (int x = 0; x < map_w; x++)
+                {
+                    IMapObjcet objcet_type = current_map.tiles[x][y].type;
+                    switch (objcet_type)
+                    {
+                        case null: map[x][y] = "."; break;
+                        case player: map[x][y] = "@"; break;
+                        case Enemy: map[x][y] = "#"; break;
+                    }
+                }
+            }
+
+            for (int y = 0; y < map_h; y++)
+            {
+                for (int x = 0; x < map_w; x++)
+                {
+                    string content = map[x][y];
+                    Console.WriteLine(content);
+                }
+            }
+
+            return map;
+        }
     }
 
 }
