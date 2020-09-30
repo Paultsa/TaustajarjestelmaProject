@@ -50,12 +50,12 @@ namespace Project
             int randomX = rnd.Next(0, map.tiles.Count());
             int randomY = rnd.Next(0, map.tiles.Count());
 
-            var filter = Builders<Map>.Filter.Eq(m => m.tiles[randomX][randomY].entity, null);
+            var filter = Builders<Map>.Filter.Eq(m => m.tiles[randomX][randomY].obj, null);
             if (filter == null)
             {
                 throw new NotImplementedException();
             }
-            var update = Builders<Map>.Update.Set(m => m.tiles[randomX][randomY].entity, player);
+            var update = Builders<Map>.Update.Set(m => m.tiles[randomX][randomY].obj, player);
 
             await _mapCollection.UpdateOneAsync(filter, update);
             return player;
