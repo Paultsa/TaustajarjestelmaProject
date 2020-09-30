@@ -1,6 +1,10 @@
+using System;
 
-
-class MapTile
+namespace Project
 {
-
+    class MapTile
+    {
+        ICharacter entity { get; set; }
+        Item item { get; set; }
+    }
 }
