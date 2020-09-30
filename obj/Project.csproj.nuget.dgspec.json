@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Paultsa\\Documents\\GitHub\\Taustajarjestelmat\\Project\\Project.csproj": {}
+    "C:\\Users\\Paultsa\\Desktop\\GitHubDesktop\\Project\\TaustajarjestelmaProject\\Project.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Paultsa\\Documents\\GitHub\\Taustajarjestelmat\\Project\\Project.csproj": {
+    "C:\\Users\\Paultsa\\Desktop\\GitHubDesktop\\Project\\TaustajarjestelmaProject\\Project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Paultsa\\Documents\\GitHub\\Taustajarjestelmat\\Project\\Project.csproj",
+        "projectUniqueName": "C:\\Users\\Paultsa\\Desktop\\GitHubDesktop\\Project\\TaustajarjestelmaProject\\Project.csproj",
         "projectName": "Project",
-        "projectPath": "C:\\Users\\Paultsa\\Documents\\GitHub\\Taustajarjestelmat\\Project\\Project.csproj",
+        "projectPath": "C:\\Users\\Paultsa\\Desktop\\GitHubDesktop\\Project\\TaustajarjestelmaProject\\Project.csproj",
         "packagesPath": "C:\\Users\\Paultsa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Paultsa\\Documents\\GitHub\\Taustajarjestelmat\\Project\\obj\\",
+        "outputPath": "C:\\Users\\Paultsa\\Desktop\\GitHubDesktop\\Project\\TaustajarjestelmaProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -40,6 +40,12 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "MongoDb.Driver": {
+              "target": "Package",
+              "version": "[*, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
