@@ -6,24 +6,33 @@ using MongoDB.Driver;
 using System.Collections.Generic;
 
 
-
-public class GameController : ControllerBase
+namespace Project
 {
-    private readonly ILogger<GameController> _logger;
-    private readonly IRepository _irepository;
-
-
-    public GameController(ILogger<GameController> logger, IRepository irepository)
+    public class GameController : ControllerBase
     {
-        _logger = logger;
-        _irepository = irepository;
-    }
+        private readonly ILogger<GameController> _logger;
+        private readonly IRepository _irepository;
 
-    [HttpGet]
-    [Route("printmap")]
-    public Task<string[,]> PrintMap()
-    {
-        Task<string[,]> map = _irepository.PrintMap();
-        return map;
+
+        public GameController(ILogger<GameController> logger, IRepository irepository)
+        {
+            _logger = logger;
+            _irepository = irepository;
+        }
+
+        [HttpGet]
+        [Route("printmap")]
+        public Task<string[,]> PrintMap()
+        {
+            Task<string[,]> map = _irepository.PrintMap();
+            return map;
+        }
+
+        [HttpPost]
+        [Route("createmap/{name}/{size:int}")]
+        public async Task<Map> CreateMap(int size, string name)
+        {
+            return await _irepository.CreateMap(size, name);
+        }
     }
 }
