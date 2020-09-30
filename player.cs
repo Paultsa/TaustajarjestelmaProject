@@ -7,10 +7,7 @@ namespace Project
         public int Damage { get; set; }
         public int Score { get; set; }
         public int Level { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
         public DateTime CreationTime { get; set; }
-
         public List<Item> List_items = new List<Item>();
 
         public static implicit operator Task<object>(Player v)
