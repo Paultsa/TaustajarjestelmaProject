@@ -94,6 +94,7 @@ namespace Project
                 }
             }
 
+            Console.WriteLine();
             //Print map to console
             for (int y = 0; y < map_h; y++)
             {
@@ -102,8 +103,18 @@ namespace Project
                 {
                     string content = map[x, y];
                     Console.Write(content);
+
+                    if (x == map_w - 1)
+                    {
+                        Console.Write("|" + (y + 1));
+                    }
                 }
                 Console.WriteLine();
+            }
+
+            for (int x = 0; x < map_w; x++)
+            {
+                Console.Write((x + 1) + "  ");
             }
 
             return null;
