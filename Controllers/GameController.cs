@@ -33,21 +33,29 @@ namespace Project
         [Route("createmap/{name}/{size:int}")]
         public async Task<Map> CreateMap(int size, string name)
         {
-            return await _irepository.CreateMap(size, name);
+            var map = await _irepository.CreateMap(size, name);
+            await _irepository.PrintMap(map.id);
+            return map;
         }
 
         [HttpPost]
         [Route("{mapId}/createplayer")]
         public async Task<Player> CreatePlayer(string mapId, [FromBody] Player player)
         {
-            return await _irepository.CreatePlayer(mapId, player);
+
+            var p = await _irepository.CreatePlayer(mapId, player);
+            await _irepository.PrintMap(mapId);
+            return p;
+
         }
 
         [HttpPost]
         [Route("{mapId}/{playerId}/move/{dir:int}")]
         public async Task<Player> MovePlayer(string mapId, string playerId, Direction dir)
         {
-            return await _irepository.MovePlayer(mapId, playerId, dir);
+            var p = await _irepository.MovePlayer(mapId, playerId, dir);
+            await _irepository.PrintMap(mapId);
+            return p;
         }
     }
 }
