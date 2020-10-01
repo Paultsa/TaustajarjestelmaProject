@@ -4,6 +4,13 @@ using System.Threading.Tasks;
 
 namespace Project
 {
+    public enum Direction
+    {
+        up,
+        right,
+        down,
+        left
+    };
     public class Player : ICharacter
     {
         public string id { get; set; }

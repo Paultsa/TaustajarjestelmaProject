@@ -11,6 +11,7 @@ namespace Project
     [ApiController]
     public class GameController : ControllerBase
     {
+
         private readonly ILogger<GameController> _logger;
         private readonly IRepository _irepository;
 
@@ -40,6 +41,13 @@ namespace Project
         public async Task<Player> CreatePlayer(string mapId, [FromBody] Player player)
         {
             return await _irepository.CreatePlayer(mapId, player);
+        }
+
+        [HttpPost]
+        [Route("{mapId}/{playerId}/move/{dir:int}")]
+        public async Task<Player> MovePlayer(string mapId, string playerId, Direction dir)
+        {
+            return await _irepository.MovePlayer(mapId, playerId, dir);
         }
     }
 }
