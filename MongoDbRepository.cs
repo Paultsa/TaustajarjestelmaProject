@@ -4,17 +4,23 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using System.Linq;
 using System.Collections.Generic;
+using MongoDB.Bson.Serialization;
 
 namespace Project
 {
     public class MongoDbRepository : IRepository
     {
+
         private readonly IMongoCollection<Map> _mapCollection;
 
         private readonly IMongoCollection<BsonDocument> _bsonDocumentCollection;
 
         public MongoDbRepository()
         {
+            BsonClassMap.RegisterClassMap<Player>();
+            BsonClassMap.RegisterClassMap<Item>();
+            BsonClassMap.RegisterClassMap<Enemy>();
+
             var mongoClient = new MongoClient("mongodb://localhost:27017");
             var database = mongoClient.GetDatabase("game");
             _mapCollection = database.GetCollection<Map>("maps");
@@ -374,7 +380,8 @@ namespace Project
                     return null;
                 }
             }
-            throw new OutOfBoundsException();
+            var p = (Player)map.tiles[playerPosition[0]][playerPosition[1]].obj;
+            throw new OutOfBoundsException(p.name, playerPosition);
 
         }
         public bool canMove(Player p, IMapObject o, ref Map map, int[] objPos)
