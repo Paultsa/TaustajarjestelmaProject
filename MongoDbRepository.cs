@@ -148,9 +148,9 @@ namespace Project
                         map.tiles[playerPosition[0]][playerPosition[1]].obj = null;
                         map.postitions[playerId][1]++;
                         var update = Builders<Map>.Update.
-                                                                                                Set(m => map.tiles[playerPosition[0]][playerPosition[1]].obj, null).
-                                                                                                Set(m => m.tiles[playerPosition[0]][playerPosition[1] + 1].obj, p);//.
-                                                                                                                                                                   //Set(m => m.postitions, map.postitions);
+                        Set(m => map.tiles[playerPosition[0]][playerPosition[1]].obj, null).
+                        Set(m => m.tiles[playerPosition[0]][playerPosition[1] + 1].obj, p);//.
+                                                                                           //Set(m => m.postitions, map.postitions);
                         var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
                         await _mapCollection.UpdateOneAsync(filter, update);
                         return (Player)p;
