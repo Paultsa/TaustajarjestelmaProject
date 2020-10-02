@@ -99,7 +99,7 @@ namespace Project
 
             Console.WriteLine();
             //Print map to console
-            for (int y = 0; y < map_h; y++)
+            for (int y = map_h; y > 0; y--)
             {
 
                 for (int x = 0; x < map_w; x++)
