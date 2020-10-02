@@ -43,6 +43,8 @@ namespace Project
 
             app.UseAuthorization();
 
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
