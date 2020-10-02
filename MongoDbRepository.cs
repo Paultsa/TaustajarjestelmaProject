@@ -48,6 +48,11 @@ namespace Project
         public async Task<Player> CreatePlayer(string mapId, Player player)
         {
             player.id = Guid.NewGuid().ToString();
+            player.creationTime = DateTime.Now;
+            player.type = Type.player;
+            player.score = 0;
+            player.health = 50;
+            player.level = 1;
             Map map = await FindMap(mapId);
             Random rnd = new Random();
             int randomX = rnd.Next(0, map.tiles.Length);
@@ -277,6 +282,7 @@ namespace Project
                         enemy.health -= p.damage;
                         if (enemy.health <= 0)
                         {
+                            p = (Player)LevelUp(p);
                             map.tiles[objPos[0]][objPos[1]].obj = null;
                             return true;
                         }
@@ -288,6 +294,14 @@ namespace Project
                 }
             }
             return true;
+        }
+
+        public ICharacter LevelUp(Player player)
+        {
+            player.level++;
+            player.score += 135;
+            player.health += 10;
+            return player;
         }
     }
 
