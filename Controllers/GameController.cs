@@ -30,6 +30,7 @@ namespace Project
         }
 
         [HttpPost]
+        //localhost:5000/createmap/Map_1/9
         [Route("createmap/{name}/{size:int}")]
         public async Task<Map> CreateMap(int size, string name)
         {
@@ -39,17 +40,59 @@ namespace Project
         }
 
         [HttpPost]
-        [Route("{mapId}/createplayer")]
+        //localhost:5000/Map_1/createplayer
+        /*
+        {
+        "name" : "Matti",
+        "damage" : 1
+        }
+        */
+        [Route("{mapId}/createPlayer")]
         public async Task<Player> CreatePlayer(string mapId, [FromBody] Player player)
         {
 
             var p = await _irepository.CreatePlayer(mapId, player);
             await _irepository.PrintMap(mapId);
             return p;
-
         }
 
         [HttpPost]
+        //localhost:5000/Map_1/createItem
+        /*
+        {
+        "name" : "Miekka",
+        "damage" : 1
+        }
+        */
+        [Route("{mapId}/createItem")]
+        public async Task<Item> CreateItem(string mapId, [FromBody] Item item)
+        {
+
+            var i = await _irepository.CreateItem(mapId, item);
+            await _irepository.PrintMap(mapId);
+            return i;
+        }
+
+        [HttpPost]
+        /*
+        //localhost:5000/Map_1/createEnemy
+        {
+        "name" : "Örkki",
+        "damage" : 1,
+        "health" : 5
+        }
+        */
+        [Route("{mapId}/createEnemy")]
+        public async Task<Enemy> CreateEnemy(string mapId, [FromBody] Enemy enemy)
+        {
+
+            var e = await _irepository.CreateEnemy(mapId, enemy);
+            await _irepository.PrintMap(mapId);
+            return e;
+        }
+
+        [HttpPost]
+        //localhost:5000/Map_1/*id*/move/left
         [Route("{mapId}/{playerId}/move/{dir}")]
         public async Task<IMapObject> MovePlayer(string mapId, string playerId, string dir)
         {

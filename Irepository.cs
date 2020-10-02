@@ -10,6 +10,8 @@ namespace Project
         Task<string[,]> PrintMap(string map_id);
 
         Task<Player> CreatePlayer(string mapId, Player player);
+        Task<Enemy> CreateEnemy(string mapId, Enemy enemy);
+        Task<Item> CreateItem(string mapId, Item item);
 
         Task<IMapObject> MovePlayer(string mapId, string playerId, Direction dir);
     }
