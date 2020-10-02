@@ -11,6 +11,6 @@ namespace Project
 
         Task<Player> CreatePlayer(string mapId, Player player);
 
-        Task<Player> MovePlayer(string mapId, string playerId, Direction dir);
+        Task<IMapObject> MovePlayer(string mapId, string playerId, Direction dir);
     }
 }

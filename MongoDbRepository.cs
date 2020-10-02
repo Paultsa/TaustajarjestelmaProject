@@ -99,7 +99,7 @@ namespace Project
 
             Console.WriteLine();
             //Print map to console
-            for (int y = map_h; y > 0; y--)
+            for (int y = map_h - 1; y >= 0; y--)
             {
 
                 for (int x = 0; x < map_w; x++)
@@ -123,7 +123,7 @@ namespace Project
             return null;
         }
 
-        public async Task<Player> MovePlayer(string mapId, string playerId, Direction dir)
+        public async Task<IMapObject> MovePlayer(string mapId, string playerId, Direction dir)
         {
             Map map = await FindMap(mapId);
             int[] playerPosition;
@@ -139,119 +139,154 @@ namespace Project
             }
             IMapObject p = map.tiles[playerPosition[0]][playerPosition[1]].obj;
             IMapObject o;
+            int[] temp;
             switch (dir)
             {
                 case Direction.up:
                     o = checkOutOfBounds(map, playerPosition, 0, 1);
-                    if (canMove((Player)p, o))
+
+                    temp = new int[] { playerPosition[0], playerPosition[1] + 1 };
+                    if (canMove((Player)p, o, ref map, temp))
                     {
-                        map.tiles[playerPosition[0]][playerPosition[1]].obj = null;
-                        map.postitions[playerId][1]++;
+                        playerPosition[1]++;
+                        map.postitions[playerId] = playerPosition;
+
                         var update = Builders<Map>.Update.
-                        Set(m => map.tiles[playerPosition[0]][playerPosition[1]].obj, null).
-                        Set(m => m.tiles[playerPosition[0]][playerPosition[1] + 1].obj, p);//.
-                                                                                           //Set(m => m.postitions, map.postitions);
+                            Set(m => m.tiles[playerPosition[0]][playerPosition[1] - 1].obj, null).
+                            Set(m => m.tiles[playerPosition[0]][playerPosition[1]].obj, p).
+                            Set(m => m.postitions, map.postitions);
+
                         var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
                         await _mapCollection.UpdateOneAsync(filter, update);
-                        return (Player)p;
+                        return p;
                     }
                     else
                     {
-
+                        var update = Builders<Map>.Update.Set(m => m.tiles[playerPosition[0]][playerPosition[1] + 1].obj, map.tiles[playerPosition[0]][playerPosition[1] + 1].obj);
+                        var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
+                        await _mapCollection.UpdateOneAsync(filter, update);
+                        return map.tiles[playerPosition[0]][playerPosition[1] + 1].obj;
                     }
-                    break;
 
                 case Direction.right:
                     o = checkOutOfBounds(map, playerPosition, 1, 0);
-                    if (canMove((Player)p, o))
+
+                    temp = new int[] { playerPosition[0] + 1, playerPosition[1] };
+                    if (canMove((Player)p, o, ref map, temp))
                     {
-                        map.tiles[playerPosition[0]][playerPosition[1]].obj = null;
-                        map.postitions[playerId][0]++;
+                        playerPosition[0]++;
+                        map.postitions[playerId] = playerPosition;
+
                         var update = Builders<Map>.Update.
-                            Set(m => m.tiles[playerPosition[0]][playerPosition[1]].obj, null).
-                            Set(m => m.tiles[playerPosition[0] + 1][playerPosition[1]].obj, p);
+                            Set(m => m.tiles[playerPosition[0] - 1][playerPosition[1]].obj, null).
+                            Set(m => m.tiles[playerPosition[0]][playerPosition[1]].obj, p).
+                            Set(m => m.postitions, map.postitions);
+
                         var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
                         await _mapCollection.UpdateOneAsync(filter, update);
-                        return (Player)p;
+                        return p;
                     }
                     else
                     {
-
+                        var update = Builders<Map>.Update.Set(m => m.tiles[playerPosition[0] + 1][playerPosition[1]].obj, map.tiles[playerPosition[0] + 1][playerPosition[1]].obj);
+                        var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
+                        await _mapCollection.UpdateOneAsync(filter, update);
+                        return map.tiles[playerPosition[0] + 1][playerPosition[1]].obj;
                     }
-                    break;
 
                 case Direction.down:
                     o = checkOutOfBounds(map, playerPosition, 0, -1);
-                    if (canMove((Player)p, o))
+
+                    temp = new int[] { playerPosition[0], playerPosition[1] - 1 };
+                    if (canMove((Player)p, o, ref map, temp))
                     {
-                        map.tiles[playerPosition[0]][playerPosition[1]].obj = null;
-                        map.postitions[playerId][1]--;
+                        playerPosition[1]--;
+                        map.postitions[playerId] = playerPosition;
+
                         var update = Builders<Map>.Update.
-                            Set(m => m.tiles[playerPosition[0]][playerPosition[1]].obj, null).
-                            Set(m => m.tiles[playerPosition[0]][playerPosition[1] - 1].obj, p);
+                            Set(m => m.tiles[playerPosition[0]][playerPosition[1] + 1].obj, null).
+                            Set(m => m.tiles[playerPosition[0]][playerPosition[1]].obj, p).
+                            Set(m => m.postitions, map.postitions);
+
                         var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
                         await _mapCollection.UpdateOneAsync(filter, update);
-                        return (Player)p;
+                        return p;
                     }
                     else
                     {
-
+                        var update = Builders<Map>.Update.Set(m => m.tiles[playerPosition[0]][playerPosition[1] - 1].obj, map.tiles[playerPosition[0]][playerPosition[1] - 1].obj);
+                        var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
+                        await _mapCollection.UpdateOneAsync(filter, update);
+                        return map.tiles[playerPosition[0]][playerPosition[1] - 1].obj;
                     }
-                    break;
 
                 case Direction.left:
                     o = checkOutOfBounds(map, playerPosition, -1, 0);
-                    if (canMove((Player)p, o))
+                    temp = new int[] { playerPosition[0] - 1, playerPosition[1] };
+                    if (canMove((Player)p, o, ref map, temp))
                     {
-                        map.tiles[playerPosition[0]][playerPosition[1]].obj = null;
-                        map.postitions[playerId][0]--;
+                        playerPosition[0]--;
+                        map.postitions[playerId] = playerPosition;
+
                         var update = Builders<Map>.Update.
-                            Set(m => m.tiles[playerPosition[0]][playerPosition[1]].obj, null).
-                            Set(m => m.tiles[playerPosition[0] - 1][playerPosition[1]].obj, p);
+                            Set(m => m.tiles[playerPosition[0] + 1][playerPosition[1]].obj, null).
+                            Set(m => m.tiles[playerPosition[0]][playerPosition[1]].obj, p).
+                            Set(m => m.postitions, map.postitions);
+
                         var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
                         await _mapCollection.UpdateOneAsync(filter, update);
-                        return (Player)p;
-
+                        return p;
                     }
                     else
                     {
-
+                        var update = Builders<Map>.Update.Set(m => m.tiles[playerPosition[0] - 1][playerPosition[1]].obj, map.tiles[playerPosition[0] - 1][playerPosition[1]].obj);
+                        var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
+                        await _mapCollection.UpdateOneAsync(filter, update);
+                        return map.tiles[playerPosition[0] - 1][playerPosition[1]].obj;
                     }
-                    break;
-
             }
-            Console.WriteLine("Exception226");
-            return null;
+            return p;
 
         }
         public IMapObject checkOutOfBounds(Map map, int[] playerPosition, int x, int y)
         {
-            if (map.tiles[playerPosition[0] + x][playerPosition[1] + y] != null)
+            int size = map.tiles[0].Length;
+            if (x < size && y < size && x >= 0 && y >= 0)
             {
-                return map.tiles[playerPosition[0] + x][playerPosition[1] + y].obj;
+                if (map.tiles[playerPosition[0] + x][playerPosition[1] + y] != null)
+                {
+                    return map.tiles[playerPosition[0] + x][playerPosition[1] + y].obj;
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else
-            {
-                //OutOfBoundsException
-                return null;
-            }
+            throw new OutOfBoundsException();
+
         }
-        public bool canMove(Player p, IMapObject o)
+        public bool canMove(Player p, IMapObject o, ref Map map, int[] objPos)
         {
             if (o != null)
             {
                 switch (o.type)
                 {
                     case Type.enemy:
+                    case Type.player:
+                        ICharacter enemy = (ICharacter)o;
+                        enemy.health -= p.damage;
+                        if (enemy.health <= 0)
+                        {
+                            map.tiles[objPos[0]][objPos[1]].obj = null;
+                            return true;
+                        }
+                        map.tiles[objPos[0]][objPos[1]].obj = enemy;
                         return false;
                     case Type.item:
                         p.list_items.Append(o);
                         return true;
-                    case Type.player:
-                        return false;
                 }
             }
-
             return true;
         }
     }

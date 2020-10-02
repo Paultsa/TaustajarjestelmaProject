@@ -50,10 +50,11 @@ namespace Project
         }
 
         [HttpPost]
-        [Route("{mapId}/{playerId}/move/{dir:int}")]
-        public async Task<Player> MovePlayer(string mapId, string playerId, Direction dir)
+        [Route("{mapId}/{playerId}/move/{dir}")]
+        public async Task<IMapObject> MovePlayer(string mapId, string playerId, string dir)
         {
-            var p = await _irepository.MovePlayer(mapId, playerId, dir);
+            Direction direction = (Direction)Enum.Parse(typeof(Direction), dir);
+            var p = await _irepository.MovePlayer(mapId, playerId, direction);
             await _irepository.PrintMap(mapId);
             return p;
         }
