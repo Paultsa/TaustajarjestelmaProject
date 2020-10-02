@@ -4,9 +4,13 @@ namespace Project
 {
     public class OutOfBoundsException : Exception
     {
-        public OutOfBoundsException()
+        public int[] moveIndex {get; set;}
+        public string playerName {get; set;}
+        public OutOfBoundsException(string name, int[] movePos)
         {
-            Console.WriteLine("OutOfBoundsException thrown!");
+            playerName = name;
+            moveIndex = movePos;
+            Console.WriteLine("\nOutOfBoundsException thrown!");
         }
     }
 }
