@@ -55,20 +55,124 @@ namespace Project
             player.level = 1;
             Map map = await FindMap(mapId);
             Random rnd = new Random();
-            int randomX = rnd.Next(0, map.tiles.Length);
-            int randomY = rnd.Next(0, map.tiles.Length);
 
-            var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
-            if (filter == null)
+            //Random position
+            var a_positions = map.postitions.Values.ToArray();
+            int randomX, randomY;
+            bool found = false;
+
+            while (true)
             {
-                throw new NotImplementedException();
+                randomX = rnd.Next(0, map.tiles.Length);
+                randomY = rnd.Next(0, map.tiles.Length);
+                found = false;
+
+                for (var i = 0; i < a_positions.Length; i++)
+                {
+                    if (
+                    a_positions[i][0] == randomX &&
+                    a_positions[i][1] == randomY
+                    )
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) { break; }
             }
 
+            var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
             map.postitions.Add(player.id, new int[2] { randomX, randomY });
             var update = Builders<Map>.Update.Set(m => m.tiles[randomX][randomY].obj, player).Set(m => m.postitions, map.postitions);
             Console.WriteLine(map.postitions[player.id][0] + ", " + map.postitions[player.id][1]);
             await _mapCollection.UpdateOneAsync(filter, update);
             return player;
+
+        }
+
+        public async Task<Enemy> CreateEnemy(string mapId, Enemy enemy)
+        {
+            enemy.id = Guid.NewGuid().ToString();
+            enemy.type = Type.enemy;
+
+            Map map = await FindMap(mapId);
+            Random rnd = new Random();
+
+            //Random position
+            var a_positions = map.postitions.Values.ToArray();
+            int randomX, randomY;
+            bool found = false;
+
+            while (true)
+            {
+                randomX = rnd.Next(0, map.tiles.Length);
+                randomY = rnd.Next(0, map.tiles.Length);
+                found = false;
+
+                for (var i = 0; i < a_positions.Length; i++)
+                {
+                    if (
+                    a_positions[i][0] == randomX &&
+                    a_positions[i][1] == randomY
+                    )
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) { break; }
+            }
+
+            var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
+            map.postitions.Add(enemy.id, new int[2] { randomX, randomY });
+            var update = Builders<Map>.Update.Set(m => m.tiles[randomX][randomY].obj, enemy).Set(m => m.postitions, map.postitions);
+            Console.WriteLine(map.postitions[enemy.id][0] + ", " + map.postitions[enemy.id][1]);
+            await _mapCollection.UpdateOneAsync(filter, update);
+            return enemy;
+        }
+
+        public async Task<Item> CreateItem(string mapId, Item item)
+        {
+            item.id = Guid.NewGuid().ToString();
+            item.type = Type.item;
+
+            Map map = await FindMap(mapId);
+            Random rnd = new Random();
+
+            //Random position
+            var a_positions = map.postitions.Values.ToArray();
+            int randomX, randomY;
+            bool found = false;
+
+            while (true)
+            {
+                randomX = rnd.Next(0, map.tiles.Length);
+                randomY = rnd.Next(0, map.tiles.Length);
+                found = false;
+
+                for (var i = 0; i < a_positions.Length; i++)
+                {
+                    if (
+                    a_positions[i][0] == randomX &&
+                    a_positions[i][1] == randomY
+                    )
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) { break; }
+            }
+
+            var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
+            map.postitions.Add(item.id, new int[2] { randomX, randomY });
+            var update = Builders<Map>.Update.Set(m => m.tiles[randomX][randomY].obj, item).Set(m => m.postitions, map.postitions);
+            Console.WriteLine(map.postitions[item.id][0] + ", " + map.postitions[item.id][1]);
+            await _mapCollection.UpdateOneAsync(filter, update);
+            return item;
         }
 
         public async Task<string[,]> PrintMap(string map_id)
@@ -256,7 +360,10 @@ namespace Project
         public IMapObject checkOutOfBounds(Map map, int[] playerPosition, int x, int y)
         {
             int size = map.tiles[0].Length;
-            if (x < size && y < size && x >= 0 && y >= 0)
+            if (playerPosition[0] + x < size &&
+                playerPosition[1] + y < size &&
+                playerPosition[0] + x >= 0 &&
+                playerPosition[1] + y >= 0)
             {
                 if (map.tiles[playerPosition[0] + x][playerPosition[1] + y] != null)
                 {
@@ -288,8 +395,11 @@ namespace Project
                         }
                         map.tiles[objPos[0]][objPos[1]].obj = enemy;
                         return false;
+
                     case Type.item:
                         p.list_items.Append(o);
+                        Item i = (Item)o;
+                        p.damage += i.damage;
                         return true;
                 }
             }
