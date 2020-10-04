@@ -38,7 +38,8 @@ namespace Project
             {
                 postitions = new Dictionary<string, int[]>(),
                 tiles = new MapTile[size][],
-                id = name
+                id = name,
+                playerCount = 0
             };
             for (int x = 0; x < size; x++)
             {
@@ -88,9 +89,11 @@ namespace Project
                 if (!found) { break; }
             }
 
+
             var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
             map.postitions.Add(player.id, new int[2] { randomX, randomY });
-            var update = Builders<Map>.Update.Set(m => m.tiles[randomX][randomY].obj, player).Set(m => m.postitions, map.postitions);
+            var update = Builders<Map>.Update.Set(m => m.tiles[randomX][randomY].obj, player).Set(m => m.postitions, map.postitions).
+            Inc("playerCount", 1);    //Increment plaeyrCount by one every time a player is added IF ISSUE REPLACE WITH: (m => m.playerCount, 1)
             Console.WriteLine(map.postitions[player.id][0] + ", " + map.postitions[player.id][1]);
             await _mapCollection.UpdateOneAsync(filter, update);
             return player;
@@ -273,6 +276,11 @@ namespace Project
 
                         var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
                         await _mapCollection.UpdateOneAsync(filter, update);
+                        if (o != null && o.type == Type.player)
+                        {
+                            update = Builders<Map>.Update.Inc("playerCount", -1);
+                            await _mapCollection.UpdateOneAsync(filter, update);
+                        }
                         return p;
                     }
                     else
