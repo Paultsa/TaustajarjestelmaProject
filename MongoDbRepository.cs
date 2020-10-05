@@ -93,12 +93,29 @@ namespace Project
             var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
             map.postitions.Add(player.id, new int[2] { randomX, randomY });
             var update = Builders<Map>.Update.Set(m => m.tiles[randomX][randomY].obj, player).Set(m => m.postitions, map.postitions).
-            Inc("playerCount", 1);    //Increment plaeyrCount by one every time a player is added IF ISSUE REPLACE WITH: (m => m.playerCount, 1)
+            Inc("playerCount", 1);    //Increment playerCount by one every time a player is added IF ISSUE REPLACE WITH: (m => m.playerCount, 1)
             Console.WriteLine(map.postitions[player.id][0] + ", " + map.postitions[player.id][1]);
             await _mapCollection.UpdateOneAsync(filter, update);
             return player;
-
         }
+
+        public async Task<MapCount[]> GetMapPopulations()
+        {
+            var levelCounts =
+            await _mapCollection.Aggregate()
+                                .Project(m => new MapCount { Id = m.id, PlayerCount = m.playerCount })
+                                .SortByDescending(l => l.PlayerCount).ToListAsync();
+
+            //Debug
+            for (var i = 0; i < levelCounts.Count(); i++)
+            {
+                Console.WriteLine("MapID: " + levelCounts[i].Id + "- Players: " + levelCounts[i].PlayerCount);
+            }
+
+            return levelCounts.ToArray();
+        }
+
+
 
         public async Task<Enemy> CreateEnemy(string mapId, Enemy enemy)
         {
@@ -436,5 +453,12 @@ namespace Project
             return player;
         }
     }
+
+    public class MapCount
+    {
+        public string Id { get; set; }
+        public int PlayerCount { get; set; }
+
+    };
 
 }

@@ -12,6 +12,7 @@ namespace Project
         Task<Player> CreatePlayer(string mapId, Player player);
         Task<Enemy> CreateEnemy(string mapId, Enemy enemy);
         Task<Item> CreateItem(string mapId, Item item);
+        Task<MapCount[]> GetMapPopulations();
 
         Task<IMapObject> MovePlayer(string mapId, string playerId, Direction dir);
     }

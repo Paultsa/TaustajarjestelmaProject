@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace Project
 {
@@ -29,10 +29,17 @@ namespace Project
             return _irepository.PrintMap(map_id);
         }
 
+        [HttpGet]
+        [Route("GetMapPopulations")]
+        public async Task<MapCount[]> GetMapPopulations()
+        {
+            return await _irepository.GetMapPopulations();
+        }
+
         [HttpPost]
         //localhost:5000/createmap/Map_1/9
         [Route("createmap/{name}/{size:int}")]
-        public async Task<Map> CreateMap(int size, string name)
+        public async Task<Map> CreateMap([Range(3, 9)] int size, string name)
         {
             var map = await _irepository.CreateMap(size, name);
             await _irepository.PrintMap(map.id);
