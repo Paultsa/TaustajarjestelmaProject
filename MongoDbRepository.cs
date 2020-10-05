@@ -251,9 +251,7 @@ namespace Project
             }
             else
             {
-                //Exception here
-                Console.WriteLine("Exception135");
-                return null;
+                throw new PlayerNotFoundException(playerId, mapId);
             }
             IMapObject p = map.tiles[playerPosition[0]][playerPosition[1]].obj;
             IMapObject o;
