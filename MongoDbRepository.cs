@@ -307,6 +307,11 @@ namespace Project
 
                         var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
                         await _mapCollection.UpdateOneAsync(filter, update);
+                        if (o != null && o.type == Type.player)
+                        {
+                            update = Builders<Map>.Update.Inc("playerCount", -1);
+                            await _mapCollection.UpdateOneAsync(filter, update);
+                        }
                         return p;
                     }
                     else
@@ -333,6 +338,11 @@ namespace Project
 
                         var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
                         await _mapCollection.UpdateOneAsync(filter, update);
+                        if (o != null && o.type == Type.player)
+                        {
+                            update = Builders<Map>.Update.Inc("playerCount", -1);
+                            await _mapCollection.UpdateOneAsync(filter, update);
+                        }
                         return p;
                     }
                     else
@@ -358,6 +368,11 @@ namespace Project
 
                         var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
                         await _mapCollection.UpdateOneAsync(filter, update);
+                        if (o != null && o.type == Type.player)
+                        {
+                            update = Builders<Map>.Update.Inc("playerCount", -1);
+                            await _mapCollection.UpdateOneAsync(filter, update);
+                        }
                         return p;
                     }
                     else
