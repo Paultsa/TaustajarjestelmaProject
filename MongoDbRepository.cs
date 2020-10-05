@@ -402,11 +402,17 @@ namespace Project
                     case Type.player:
                         ICharacter enemy = (ICharacter)o;
                         enemy.health -= p.damage;
+                        Console.WriteLine("Player done " + p.damage + " to " + enemy.name);
                         if (enemy.health <= 0)
                         {
                             p = (Player)LevelUp(p);
                             map.tiles[objPos[0]][objPos[1]].obj = null;
+                            Console.WriteLine("Enemy died");
                             return true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Enemy has " + enemy.health + " remaining");
                         }
                         map.tiles[objPos[0]][objPos[1]].obj = enemy;
                         return false;
@@ -415,6 +421,7 @@ namespace Project
                         p.list_items.Append(o);
                         Item i = (Item)o;
                         p.damage += i.damage;
+                        Console.WriteLine("Found item with damage: " + i.damage);
                         return true;
                 }
             }
