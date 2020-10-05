@@ -412,7 +412,7 @@ namespace Project
                         }
                         else
                         {
-                            Console.WriteLine("Enemy has " + enemy.health + " remaining");
+                            Console.WriteLine("Enemy has " + enemy.health + " health remaining");
                         }
                         map.tiles[objPos[0]][objPos[1]].obj = enemy;
                         return false;
