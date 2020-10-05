@@ -109,7 +109,7 @@ namespace Project
             //Debug
             for (var i = 0; i < levelCounts.Count(); i++)
             {
-                Console.WriteLine("MapID: " + levelCounts[i].Id + "- Players: " + levelCounts[i].PlayerCount);
+                Console.WriteLine("MapID: " + levelCounts[i].Id + " - Players: " + levelCounts[i].PlayerCount);
             }
 
             return levelCounts.ToArray();
