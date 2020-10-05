@@ -13,7 +13,8 @@ namespace Project
         Task<Enemy> CreateEnemy(string mapId, Enemy enemy);
         Task<Item> CreateItem(string mapId, Item item);
         Task<MapCount[]> GetMapPopulations();
-
+        Task<Player[]> GetPlayers(string mapId);
+        Task<Player[]> GetPlayersWithMinLevel(string mapId, int minLevel);
         Task<IMapObject> MovePlayer(string mapId, string playerId, Direction dir);
     }
 }

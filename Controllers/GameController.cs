@@ -36,6 +36,21 @@ namespace Project
             return await _irepository.GetMapPopulations();
         }
 
+        //localhost:5000/Map_1/GetPlayers
+        //localhost:5000/Map_1/GetPlayers?minLevel=2
+
+        [HttpGet]
+        [Route("{map_id}/GetPlayers")]
+        public async Task<Player[]> GetPlayers(string map_id, [Range(1,999)][FromQuery]int? minLevel)
+        {
+            if(minLevel.HasValue)
+            {
+                return await _irepository.GetPlayersWithMinLevel(map_id, minLevel.Value);
+            }
+            return await _irepository.GetPlayers(map_id);
+        }
+
+
         [HttpPost]
         //localhost:5000/createmap/Map_1/9
         [Route("createmap/{name}/{size:int}")]
