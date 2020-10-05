@@ -30,11 +30,11 @@ namespace Project
             }
             catch(PlayerNotFoundException p)
             {
-                Console.WriteLine("PlayerNotFoundexception caught by ErrorHandlingMiddleware");
+                Console.WriteLine("PlayerNotFoundException caught by ErrorHandlingMiddleware");
                 Console.WriteLine("Player: " + p.playerId + " was not found on map: " + p.mapId);
                 context.Response.HttpContext.Response.StatusCode = 404;
                 // Write response
-                await context.Response.HttpContext.Response.WriteAsync("PlayerNotFoundexception caught by ErrorHandlingMiddleware\n");
+                await context.Response.HttpContext.Response.WriteAsync("PlayerNotFoundException caught by ErrorHandlingMiddleware\n");
                 await context.Response.HttpContext.Response.WriteAsync("Player: " + p.playerId + " was not found on map: " + p.mapId);
             }
         }
