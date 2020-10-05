@@ -268,9 +268,7 @@ namespace Project
             }
             else
             {
-                //Exception here
-                Console.WriteLine("Exception135");
-                return null;
+                throw new PlayerNotFoundException(playerId, mapId);
             }
             IMapObject p = map.tiles[playerPosition[0]][playerPosition[1]].obj;
             IMapObject o;
@@ -324,6 +322,11 @@ namespace Project
 
                         var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
                         await _mapCollection.UpdateOneAsync(filter, update);
+                        if (o != null && o.type == Type.player)
+                        {
+                            update = Builders<Map>.Update.Inc("playerCount", -1);
+                            await _mapCollection.UpdateOneAsync(filter, update);
+                        }
                         return p;
                     }
                     else
@@ -350,6 +353,11 @@ namespace Project
 
                         var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
                         await _mapCollection.UpdateOneAsync(filter, update);
+                        if (o != null && o.type == Type.player)
+                        {
+                            update = Builders<Map>.Update.Inc("playerCount", -1);
+                            await _mapCollection.UpdateOneAsync(filter, update);
+                        }
                         return p;
                     }
                     else
@@ -375,6 +383,11 @@ namespace Project
 
                         var filter = Builders<Map>.Filter.Eq(m => m.id, mapId);
                         await _mapCollection.UpdateOneAsync(filter, update);
+                        if (o != null && o.type == Type.player)
+                        {
+                            update = Builders<Map>.Update.Inc("playerCount", -1);
+                            await _mapCollection.UpdateOneAsync(filter, update);
+                        }
                         return p;
                     }
                     else
