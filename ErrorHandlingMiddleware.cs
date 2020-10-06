@@ -15,7 +15,7 @@ namespace Project
 
         public async Task Invoke(HttpContext context)
         {
-             try
+            try
             {
                 await _next(context);
             }
@@ -23,19 +23,19 @@ namespace Project
             {
                 Console.WriteLine("OutOfBoundsException caught by ErrorHandlingMiddleware");
                 Console.WriteLine("Player: " + o.playerName + " tried to move outside of the map at: " + o.moveIndex[0] + "," + o.moveIndex[1]);
-                context.Response.HttpContext.Response.StatusCode = 405;
+                context.Response.StatusCode = 405;
                 // Write response
-                await context.Response.HttpContext.Response.WriteAsync("OutOfBoundsException caught by ErrorHandlingMiddleware\n");
-                await context.Response.HttpContext.Response.WriteAsync("Player: " + o.playerName + " tried to move outside of the map at: " + o.moveIndex[0] + "," + o.moveIndex[1]);
+                await context.Response.WriteAsync("OutOfBoundsException caught by ErrorHandlingMiddleware\n");
+                await context.Response.WriteAsync("Player: " + o.playerName + " tried to move outside of the map at: " + o.moveIndex[0] + "," + o.moveIndex[1]);
             }
             catch(PlayerNotFoundException p)
             {
                 Console.WriteLine("PlayerNotFoundException caught by ErrorHandlingMiddleware");
                 Console.WriteLine("Player: " + p.playerId + " was not found on map: " + p.mapId);
-                context.Response.HttpContext.Response.StatusCode = 404;
+                context.Response.StatusCode = 404;
                 // Write response
-                await context.Response.HttpContext.Response.WriteAsync("PlayerNotFoundException caught by ErrorHandlingMiddleware\n");
-                await context.Response.HttpContext.Response.WriteAsync("Player: " + p.playerId + " was not found on map: " + p.mapId);
+                await context.Response.WriteAsync("PlayerNotFoundException caught by ErrorHandlingMiddleware\n");
+                await context.Response.WriteAsync("Player: " + p.playerId + " was not found on map: " + p.mapId);
             }
         }
     }
