@@ -125,5 +125,13 @@ namespace Project
             await _irepository.PrintMap(mapId);
             return p;
         }
+
+        [HttpDelete]
+        //localhost:5000/Map_1
+        [Route("{mapId}")]
+        public async Task<Map> DeleteMap(string mapId)
+        {
+            return await _irepository.DeleteMap(mapId);
+        }
     }
 }
