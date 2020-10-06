@@ -23,6 +23,7 @@ namespace Project
         }
 
         [HttpGet]
+        //localhost:5000/printmap/Map_1
         [Route("printmap/{map_id}")]
         public Task<string[,]> PrintMap(string map_id)
         {
@@ -30,6 +31,7 @@ namespace Project
         }
 
         [HttpGet]
+        //localhost:5000/GetMapPopulations
         [Route("GetMapPopulations")]
         public async Task<MapCount[]> GetMapPopulations()
         {
@@ -41,9 +43,9 @@ namespace Project
 
         [HttpGet]
         [Route("{map_id}/GetPlayers")]
-        public async Task<Player[]> GetPlayers(string map_id, [Range(1,999)][FromQuery]int? minLevel)
+        public async Task<Player[]> GetPlayers(string map_id, [Range(1, 999)][FromQuery] int? minLevel)
         {
-            if(minLevel.HasValue)
+            if (minLevel.HasValue)
             {
                 return await _irepository.GetPlayersWithMinLevel(map_id, minLevel.Value);
             }
