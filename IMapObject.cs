@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Project
 {
@@ -12,6 +13,8 @@ namespace Project
     public interface IMapObject
     {
         string id { get; set; }
+
+        [EnumDataType(typeof(Type))]
         Type type { get; set; }
     }
 }
