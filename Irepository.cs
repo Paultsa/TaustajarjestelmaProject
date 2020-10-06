@@ -6,6 +6,7 @@ namespace Project
 {
     public interface IRepository
     {
+        Task<Map> DeleteMap(string mapId);
         Task<Map> CreateMap(int size, string map);
         Task<string[,]> PrintMap(string map_id);
 
