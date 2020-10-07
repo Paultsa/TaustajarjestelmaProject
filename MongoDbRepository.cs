@@ -38,7 +38,7 @@ namespace Project
             var mapFilter = Builders<Map>.Filter.Eq(m => m.id, mapId);
             return await _mapCollection.FindOneAndDeleteAsync(mapFilter);
         }
-        
+
         public async Task<Map> CreateMap(int size, string name)
         {
             Map map = new Map()
@@ -127,7 +127,7 @@ namespace Project
             var positions = map.postitions.Values.ToArray();
             List<Player> playersWithMinLevel = new List<Player>();
 
-            foreach(var p in positions)
+            foreach (var p in positions)
             {
                 if (map.tiles[p[0]][p[1]].obj.type == Type.player)
                 {
