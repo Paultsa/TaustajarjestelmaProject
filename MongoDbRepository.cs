@@ -129,12 +129,14 @@ namespace Project
 
             foreach(var p in positions)
             {
-                
-                Player temp = (Player)map.tiles[p[0]][p[1]].obj;
-                
-                if(temp.level >= minLevel)
+                if (map.tiles[p[0]][p[1]].obj.type == Type.player)
                 {
-                    playersWithMinLevel.Add(temp);
+                    Player temp = (Player)map.tiles[p[0]][p[1]].obj;
+
+                    if (temp.level >= minLevel)
+                    {
+                        playersWithMinLevel.Add(temp);
+                    }
                 }
             }
             return playersWithMinLevel.ToArray();
@@ -146,10 +148,13 @@ namespace Project
             var positions = map.postitions.Values.ToArray();
             List<Player> players = new List<Player>();
 
-            foreach(var p in positions)
+            foreach (var p in positions)
             {
-                Player temp = (Player)map.tiles[p[0]][p[1]].obj;
-                players.Add(temp);
+                if (map.tiles[p[0]][p[1]].obj.type == Type.player)
+                {
+                    Player temp = (Player)map.tiles[p[0]][p[1]].obj;
+                    players.Add(temp);
+                }
             }
             return players.ToArray();
         }
