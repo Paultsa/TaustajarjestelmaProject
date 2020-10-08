@@ -300,6 +300,8 @@ namespace Project
                 Console.Write((x + 1) + "  ");
             }
 
+            Console.WriteLine();
+
             return null;
         }
 
